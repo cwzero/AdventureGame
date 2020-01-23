@@ -19,4 +19,9 @@ public class GameImpl extends ComplexActorBase<GameController, GameState> implem
 	public Player getPlayer() {
 		return player;
 	}
+
+	@Override
+	public void run() {
+		
+	}
 }

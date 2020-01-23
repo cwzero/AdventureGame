@@ -113,6 +113,6 @@ public class Main {
 		
 		Injector injector = Guice.createInjector(new PlayerModule(), new GameModule());
 		Game game = injector.getInstance(Game.class);
-		
+		game.run();
 	}
 }
