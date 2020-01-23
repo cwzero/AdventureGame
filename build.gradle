@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'antlr'
 }
 
 mainClassName = 'com.liquidforte.adventure.main.Main'
@@ -14,6 +15,9 @@ repositories {
 }
 
 dependencies {
+    antlr "org.antlr:antlr4:4.8-1"
+    implementation "org.antlr:antlr4-runtime:4.8-1"
+
 	implementation 'com.google.guava:guava:28.2-jre'
 	implementation 'com.google.inject:guice:4.2.2'
 	implementation 'org.fusesource.jansi:jansi:1.18'
@@ -27,6 +31,29 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
     
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
+}
+
+configurations {
+    compile {
+        extendsFrom = extendsFrom.findAll { it != configurations.antlr }
+    }
+}
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+
+    // Keep a copy of generated sources
+    doLast {
+        println "Copying generated grammar lexer/parser files to main directory."
+        copy {
+            from "${buildDir}/generated-src/antlr/main"
+            into "generated-src/main/java"
+        }
+    }
+}
+
+clean.doLast {
+    file('generated-src').deleteDir()
 }
 
 sourceCompatibility = 12
