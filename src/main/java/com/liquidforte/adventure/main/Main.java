@@ -2,6 +2,7 @@ package com.liquidforte.adventure.main;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.liquidforte.adventure.command.inject.CommandModule;
 import com.liquidforte.adventure.game.api.Game;
 import com.liquidforte.adventure.game.inject.GameModule;
 import com.liquidforte.adventure.player.inject.PlayerModule;
@@ -111,7 +112,7 @@ public class Main {
 		 *
 		 */
 		
-		Injector injector = Guice.createInjector(new PlayerModule(), new GameModule());
+		Injector injector = Guice.createInjector(new CommandModule(), new PlayerModule(), new GameModule());
 		Game game = injector.getInstance(Game.class);
 		game.run();
 	}

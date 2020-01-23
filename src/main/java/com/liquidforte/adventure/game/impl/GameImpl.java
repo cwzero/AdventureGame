@@ -11,8 +11,8 @@ public class GameImpl extends ComplexActorBase<GameController, GameState> implem
 	private Player player;
 
 	@Inject
-	public GameImpl(GameController controller, GameState state, Player player) {
-		super(controller, state);
+	public GameImpl(GameController controller, Player player) {
+		super(controller);
 		this.player = player;
 	}
 	
@@ -22,6 +22,14 @@ public class GameImpl extends ComplexActorBase<GameController, GameState> implem
 
 	@Override
 	public void run() {
+		while(true) {
+			doRun();
+		}
+	}
+	
+	protected void doRun() {
+		super.run();
 		
+		getPlayer().run();		
 	}
 }
